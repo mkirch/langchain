@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from typing import Any, Dict, List, NamedTuple, Optional
+from PIL import Image
 
 from pydantic import BaseModel, Extra, Field, root_validator
 
@@ -140,6 +141,31 @@ class LLMResult(BaseModel):
     llm_output: Optional[dict] = None
     """For arbitrary LLM provider specific output."""
 
+
+# Now do that for images:
+@dataclass_json
+@dataclass
+class ImageModelGeneration:
+    """Output of a single image generation."""
+
+    image: str
+    """Generated image output."""
+
+    image_generation_info: Optional[Dict[str, Any]] = None
+    """Raw generation info response from the provider"""
+    """May include things like reason for finishing (e.g. in OpenAI)"""
+
+
+@dataclass_json
+@dataclass
+class ImageModelResult:
+    """Class that contains all relevant information for an Image Result."""
+    
+    imagegenerations: List[List[ImageModelGeneration]]
+    """List of the things generated. This is List[List[]] because
+    each input could have multiple generations."""
+    image_output: Optional[dict] = None
+    """For arbitrary image provider specific output."""
 
 class PromptValue(BaseModel, ABC):
     @abstractmethod

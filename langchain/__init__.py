@@ -36,6 +36,10 @@ from langchain.llms import (
     StochasticAI,
     Writer,
 )
+from langchain.image import (
+    HuggingFaceHubImageGeneration
+)
+
 from langchain.llms.huggingface_pipeline import HuggingFacePipeline
 from langchain.prompts import (
     BasePromptTemplate,
@@ -90,6 +94,7 @@ __all__ = [
     "ReActChain",
     "Wikipedia",
     "HuggingFaceHub",
+    "HuggingFaceHubImageGeneration",
     "HuggingFacePipeline",
     "SQLDatabase",
     "SQLDatabaseChain",
